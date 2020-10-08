@@ -45,6 +45,7 @@ RSpec.describe "volunteer adds a case contact", type: :system do
     visit new_case_contact_path
 
     check volunteer_casa_case_one.case_number
+    screenshot_and_save_page
     check "School"
     check "Therapist"
     choose "Yes"
@@ -57,10 +58,11 @@ RSpec.describe "volunteer adds a case contact", type: :system do
     fill_in "Notes", with: ""
 
     expect(page).not_to have_text("error")
+    screenshot_and_save_page
     expect {
       click_on "Submit"
     }.to change(CaseContact, :count).by(1)
-
+    screenshot_and_save_page
     expect(CaseContact.first.notes).to eq ""
   end
 
